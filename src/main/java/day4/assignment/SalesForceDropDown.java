@@ -1,41 +1,69 @@
-package day1.assignment;
+package day4.assignment;
 
 import java.time.Duration;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class Salesforce {
+/*
+ Day_4 
+ Assignment 
+
+Credentials:
+hari.radhakrishnan@qeagle.com
+Leaf$1234
+
+
+
+		ChromeOptions options = new ChromeOptions();	options.addArguments("--disable-notifications");
+		ChromeDriver driver = new ChromeDriver(options);
+
+
+
+1. Launch https://login.salesforce.com/ 
+2. Login to Salesforce with your username and password
+3. Click on the App Launcher (dots)
+4. Click View All
+5. Type Content on the Search box
+6. Click the Content Link
+7. Click on Chatter Tab
+8. Verify the Chatter title on the page
+9. Click the Question tab
+10. Type Question 
+11. Type Details 
+12. Click Ask
+13. Confirm the question appears
+14. Close the browser
+ 
+ 
+ 
+ 
+ */
+
+public class SalesForceDropDown {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
 		WebDriverManager.chromedriver().setup();
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--disable-notifications");
 		ChromeDriver driver = new ChromeDriver(options);
 		driver.manage().window().maximize();
 		
-
-// Launch URL  //input[@id=""]   //input[@id="password"] //input[@id="Login"]
 		driver.get("https://login.salesforce.com");
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 		driver.findElement(By.id("username")).sendKeys("hari.radhakrishnan@qeagle.com");
 		driver.findElement(By.id("password")).sendKeys("Leaf$1234");
 		driver.findElement(By.id("Login")).click();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(50));
 		driver.findElement(By.xpath("//div[@class=\"slds-icon-waffle\"]")).click();
-		driver.findElement(By.xpath("//button[contains(text(),'View All')]")).click();
-		driver.findElement(By.xpath("//p[text()='Sales']")).click();
-		WebElement account = driver.findElement(By.xpath("//span[text()='Accounts']")); 
-		driver.executeScript("arguments[0].click();", account);
-		driver.findElement(By.xpath("//div[text()='New']")).click();
-		driver.findElement(By.xpath("//input[@name='Name']")).sendKeys("RajiPalani");
-		driver.findElement(By.xpath("//button[@name='SaveEdit']")).click();
 		
 	}
 
 }
+
+
