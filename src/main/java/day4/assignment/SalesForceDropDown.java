@@ -3,8 +3,11 @@ package day4.assignment;
 import java.time.Duration;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.Assert;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -45,7 +48,7 @@ Leaf$1234
 
 public class SalesForceDropDown {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		// TODO Auto-generated method stub
 		
 		WebDriverManager.chromedriver().setup();
@@ -61,7 +64,31 @@ public class SalesForceDropDown {
 		driver.findElement(By.id("Login")).click();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(50));
 		driver.findElement(By.xpath("//div[@class=\"slds-icon-waffle\"]")).click();
+		driver.findElement(By.xpath("//button[contains(text(),'View All')]")).click();
+		driver.findElement(By.xpath("//input[@id='input-105']")).click();
+		driver.findElement(By.xpath("//input[@id='input-105']")).sendKeys("Content");
+		driver.findElement(By.xpath("//a[@class=\"slds-text-heading_small\"]")).click();
+		Thread.sleep(5000);
 		
+		WebElement element = driver.findElement(By.xpath("//span[contains(text(),'Chatter')]"));
+	      JavascriptExecutor executor = (JavascriptExecutor)driver;
+	      executor.executeScript("arguments[0].click();", element);
+	      
+	      String expected_title = "Chatter Home | Salesforce";
+	      String actual_title = driver.getTitle();
+	      
+	      Assert.assertEquals(actual_title, expected_title);
+	      driver.findElement(By.xpath("//a[@title='Question']")).click();
+	      //driver.findElement(By.xpath("//button[@title='What would you like to know?']")).click();
+	      driver.findElement(By.xpath("//textarea[@placeholder='What would you like to know?']")).sendKeys("What would you like to know");
+	      driver.findElement(By.xpath(" //div[@data-placeholder='If you have more to say, add details here...']")).sendKeys("Details");
+	      driver.findElement(By.xpath("//button[contains(text(),'Ask')]")).click();
+	      String actual_text = driver.findElement(By.xpath("//article[@data-type=\"QuestionPost\"]/div[2]/span")).getText();
+	      String expected_text = "What would you like to know";
+	      Assert.assertEquals(actual_text, expected_text);
+	      driver.close();
+	     
+	      
 	}
 
 }
